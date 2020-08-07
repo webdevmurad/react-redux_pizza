@@ -4,7 +4,7 @@ function SortPopup({items}) {
     const [visiblePopup, setVisiblePopup] = React.useState(false);
     const [activeItem, setActiveItem] = React.useState(0);
     const sortRef = React.useRef();
-    const activeLabel = items[activeItem].name
+    const activeLabel = items[activeItem].name;
 
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup);
