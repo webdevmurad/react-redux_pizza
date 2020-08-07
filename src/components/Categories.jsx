@@ -4,8 +4,11 @@ function Categories({items, onClickItem}) {
     const [activeItem, setActiveItem] = React.useState(null);
 
     const onSelectItem = (index) => {
-        setActiveItem(index)
+        setActiveItem(index);
+        onClickItem(index);
     }
+
+    console.log('rerender')
 
     return (
         <div className="categories">
