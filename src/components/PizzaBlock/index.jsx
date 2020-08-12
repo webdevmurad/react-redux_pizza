@@ -3,15 +3,26 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Button from '../Button'
 
-function PizzaBlock({name, imageUrl, price, types, sizes, onClickAddPizza }) {
+function PizzaBlock({id, name, imageUrl, price, types, sizes, onClickAddPizza, addedCount }) {
 
     const availableTypes = ['тонкое', 'традиционное'];
     const availableSizes = [26, 30, 40];
 
 
     const [activeType, setActiveType] = React.useState(types[0]);
-    const [activeSize, setActiveSize] = React.useState(sizes[0]);
+    const [activeSize, setActiveSize] = React.useState(0);
 
+    const onAddPizza = () => {
+        const obj = {
+            id,
+            name,
+            imageUrl,
+            price,
+            size: availableSizes[activeSize],
+            type: availableTypes[activeType]
+        }
+        onClickAddPizza(obj);
+    }
 
     const onSelectType = (index) => {
         setActiveType(index);
@@ -66,7 +77,7 @@ function PizzaBlock({name, imageUrl, price, types, sizes, onClickAddPizza }) {
                 </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">от {price} ₽</div>
-                    <Button onClick={onClickAddPizza} className="button--add" outline>
+                    <Button onClick={onAddPizza} className="button--add" outline>
                         <svg
                             width="12"
                             height="12"
@@ -80,7 +91,7 @@ function PizzaBlock({name, imageUrl, price, types, sizes, onClickAddPizza }) {
                             />
                         </svg>
                         <span>Добавить</span>
-                        <i>2</i>
+                        {addedCount && <i>{addedCount}</i>}
                     </Button>
                 </div>
             </div>
@@ -95,6 +106,7 @@ PizzaBlock.propTypes = {
     types: PropTypes.arrayOf(PropTypes.number),
     sizes: PropTypes.arrayOf(PropTypes.number),
     onAddPizza: PropTypes.func,
+    addedCount: PropTypes.number
 }
 
 PizzaBlock.defaultProps = {
